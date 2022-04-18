@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Wybierz termin</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+</head>
+<body th:object="${doc}">
+    <div>Wybrano doktora:
+    <b th:text="${doc.getFirstName()}">Brak imienia</b>
+    <b th:text="${doc.getLastName()}">Brak nazwiska</b>
+    </div>
+
+    <div>
+        <form action="#" th:action="@{/appointments/date-selection}" method="post" th:object="${selectedDate}">
+            <input type="date" th:field="${selectedDate.data}">
+            <input type="submit" value="Wybierz">
+            <input type="button" value="Cofnij" onclick="history.back()">
+        </form>
+    </div>
+
+    <p th:if="${badDate}">
+        Wybrano złą datę, spróbuj ponownie.
+    </p>
+</body>
+</html>

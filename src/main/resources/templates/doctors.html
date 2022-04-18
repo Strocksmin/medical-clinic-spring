@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Wybierz lekarza</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Zapraszamy na super wizytę!</h1>
+
+<form action="#" th:action="@{/appointments/doctor-selection}" th:object="${selectedDoctor}" method="post">
+<table>
+    <colgroup>
+        <col span="1" style="width: 15%;">
+        <col span="1" style="width: 15%;">
+        <col span="1" style="width: 15%;">
+    </colgroup>
+    <thead>
+    <tr>
+        <th> Imię </th>
+        <th> Nazwisko </th>
+        <th> Specjalizacja </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${doctors.isEmpty()}">
+        <td colspan="2"> Brak dostępnych lekarzy. </td>
+    </tr>
+    <tr th:if="${doctors.size()>0}" th:each="doctor : ${doctors}">
+        <td><input type="radio" name="doctorRadio" th:value="${doctor.id}" th:field="${selectedDoctor.data}"><span th:text="${doctor.getFirstName()}"> Imię </span></td>
+        <td><span th:text="${doctor.getLastName()}"> Nazwisko </span></td>
+        <td><span th:text="${doctor.getSpecialisation()}"> Specjalizacja </span></td>
+    </tr>
+    </tbody>
+</table>
+
+    <p th:if="${doctors.isEmpty()}">
+        <input type="button" value="Cofnij" onclick="history.back()">
+    </p>
+    <p th:if="${doctors.size()>0}">
+        <input type="submit" value="Wybierz">
+    </p>
+</form>
+</body>
+</html>
